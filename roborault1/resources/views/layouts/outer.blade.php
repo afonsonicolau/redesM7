@@ -43,20 +43,21 @@
     <div class="container d-flex align-items-center">
 
       <div class="logo mr-auto">
-        <h1 class="text-light"><a href="index.html"><span>Clube de Robótica</span></a></h1>
+        <!-- <h1 class="text-light"><a href="index.html"><span>Clube de Robótica</span></a></h1>  -->
         <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        <a href="/"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
       </div>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="#index.html">Menu</a></li>
+          <li class="active"><a href="/">Início</a></li>
           <li><a href="#about">Sobre Nós</a></li>
-          <li><a href="#services">Serviços</a></li>
-          <li><a href="#portfolio">Portfólio</a></li>
+         <!-- <li><a href="#services">Serviços</a></li> -->
+          <li><a href="#projects">Projetos</a></li>
           <li><a href="#team">Equipa</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li class="drop-down"><a href="">Drop Down</a>
+          <li><a href="#gallery">Galeria</a></li> 
+          <li><a href="#news">Notícias</a></li> 
+          <!-- <li class="drop-down"><a href="">Drop Down</a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
               <li class="drop-down"><a href="#">Drop Down 2</a>
@@ -72,7 +73,7 @@
               <li><a href="#">Drop Down 4</a></li>
               <li><a href="#">Drop Down 5</a></li>
             </ul>
-          </li>
+          </li> -->
           <li><a href="#contact">Contactos</a></li>
 
           <li class="get-started"><a href="#about">Inscreve-te</a></li>

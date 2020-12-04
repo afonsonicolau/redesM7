@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
           <h1 data-aos="fade-up">Junta-te ao nosso clube para novas experiências!</h1>
-          <h2 data-aos="fade-up" data-aos-delay="400">Somos um clube dedicado à inovação e criação de robôs</h2>
+          <h2 data-aos="fade-up" data-aos-delay="400">Somos um clube dedicado à inovação e criação de robôs bem como o ensino sobre a tecnologia</h2>
           <div data-aos="fade-up" data-aos-delay="800">
             <a href="#about" class="btn-get-started scrollto">Inscreve-te</a>
           </div>
@@ -70,8 +70,7 @@
         <div class="row content">
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="150">
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
+              O nosso clube baseia-se na aprendizagem, contrução e aprimoração de todos os nossos projetos, estes são, principalmente, robôs, arduíno e hardware em geral.
             </p>
             <ul>
               <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
@@ -143,7 +142,7 @@
       </div>
     </section><!-- End Counts Section -->
 
-    <!-- ======= Services Section ======= -->
+    <!-- ======= Services Section =======
     <section id="services" class="services">
       <div class="container">
 
@@ -188,9 +187,9 @@
         </div>
 
       </div>
-    </section><!-- End Services Section -->
+    </section> End Services Section
 
-    <!-- ======= More Services Section ======= -->
+     ======= More Services Section =======
     <section id="more-services" class="more-services">
       <div class="container">
 
@@ -235,7 +234,7 @@
         </div>
 
       </div>
-    </section><!-- End More Services Section -->
+    </section> End More Services Section -->
 
     <!-- ======= Features Section ======= -->
     <section id="features" class="features">
@@ -324,7 +323,7 @@
       </div>
     </section><!-- End Features Section -->
 
-    <!-- ======= Testimonials Section ======= -->
+    <!-- ======= Testimonials Section =======
     <section id="testimonials" class="testimonials section-bg">
       <div class="container">
 
@@ -403,14 +402,14 @@
         </div>
 
       </div>
-    </section><!-- End Testimonials Section -->
+    </section> End Testimonials Section -->
 
-    <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio">
+    <!-- ======= Projects Section ======= -->
+    <section id="projects" class="portfolio">
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
-          <h2>Portfólio</h2>
+          <h2>Projetos</h2>
           <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem</p>
         </div>
 
@@ -435,7 +434,7 @@
                 <p>App</p>
                 <div class="portfolio-links">
                   <a href="assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                  <a href="{{ route('project') }}" title="More Details"><i class="bx bx-link"></i></a>
                 </div>
               </div>
             </div>
@@ -646,7 +645,7 @@
       </div>
     </section><!-- End Team Section -->
 
-    <!-- ======= Pricing Section ======= 
+    <!-- ======= Pricing Section =======
     <section id="pricing" class="pricing">
       <div class="container">
 
