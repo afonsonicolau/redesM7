@@ -789,7 +789,7 @@
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
-          <h2>Contact Us</h2>
+          <h2>Contacta-nos</h2>
         </div>
 
         <div class="row">
@@ -797,7 +797,7 @@
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="contact-about">
               <h3>Clube de Robótica</h3>
-              <p>Segue-nos nas redes sociais abaixo para acompanhares os nossos progressos e, caso tenhas dúvidas, veres o que realmente fazemos</p>
+              <p>Segue-nos nas redes sociais abaixo para acompanhares os nossos progressos e, caso tenhas dúvidas, veres o que realmente fazemos! Caso tenhas algum dúvida podes tanto contactar-nos por elas ou enviando um e-mail no formulário ao lado.</p>
               <div class="social-links">
                 <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
                 <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
