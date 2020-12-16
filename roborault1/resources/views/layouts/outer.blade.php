@@ -55,8 +55,8 @@
          <!-- <li><a href="#services">Serviços</a></li> -->
           <li><a href="#projects">Projetos</a></li>
           <li><a href="#team">Equipa</a></li>
-          <li><a href="#gallery">Galeria</a></li> 
-          <li><a href="#news">Notícias</a></li> 
+          <li><a href="#gallery">Galeria</a></li>
+          <li><a href="#news">Notícias</a></li>
           <!-- <li class="drop-down"><a href="">Drop Down</a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
