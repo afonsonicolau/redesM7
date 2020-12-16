@@ -76,7 +76,7 @@
           </li> -->
           <li><a href="#contact">Contactos</a></li>
 
-          <li class="get-started"><a href="#about">Inscreve-te</a></li>
+          <li class="get-started"><a href="{{ route('register') }}">Inscreve-te</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
