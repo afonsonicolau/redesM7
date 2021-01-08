@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjetosTable extends Migration
+class CreateFotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,17 @@ class CreateProjetosTable extends Migration
      */
     public function up()
     {
-        Schema::create('projetos', function (Blueprint $table) {
+        Schema::create('fotos', function (Blueprint $table) {
             $table->id();
+            $table->string('sDesignation');
+            $table->string('sImagePath');
+            $table->unsignedBigInteger('iIdProject');
             $table->timestamps();
+
+            $table->foreign('iIdProject')
+                ->references('id')
+                ->on('projetos')
+                ->onDelete('cascade');
         });
     }
 
@@ -26,6 +34,6 @@ class CreateProjetosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projetos');
+        Schema::dropIfExists('fotos');
     }
 }
