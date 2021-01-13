@@ -12,4 +12,8 @@ class Projeto extends Model
     {
         return $this->hasMany(Foto::class);
     }
+
+    public function categoria(){
+        return $this->belongsTo(Categoria::class);
+    }
 }

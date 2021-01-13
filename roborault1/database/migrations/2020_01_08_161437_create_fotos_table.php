@@ -17,10 +17,10 @@ class CreateFotosTable extends Migration
             $table->id();
             $table->string('sDesignation');
             $table->string('sImagePath');
-            $table->unsignedBigInteger('iIdProject');
+            $table->unsignedBigInteger('projeto_id');
             $table->timestamps();
 
-            $table->foreign('iIdProject')
+            $table->foreign('projeto_id')
                 ->references('id')
                 ->on('projetos')
                 ->onDelete('cascade');

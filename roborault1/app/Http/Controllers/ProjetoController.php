@@ -17,7 +17,9 @@ class ProjetoController extends Controller
     public function index()
     {
         //
-        return view('projetos.index');
+        $projetos = Projeto::all(); // = select * from projetos
+        return view('projetos.index', compact('projetos'));
+        // The compact mehod passes the results from the select to the index view
     }
 
     /**
@@ -40,16 +42,24 @@ class ProjetoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Project Form validation
+        request()->validate([
+            'inputDesignation' => 'required',
+            'selectCategory' => 'required',
+            'inputResponsibles' => 'required',
+            'inputInitialDate' => 'required',
+            'inputGitHub' => 'required',
+            'inputDescription' => 'required'
+        ]);
+
+        // Data insertion in Project Form
         $project = new Projeto();
         $project->sDesignation = request('inputDesignation');
-        $project->iIdCategory=request('selectCategory');
+        $project->categoria_id=request('selectCategory');
         $project->sResponsible=request('inputResponsibles');
         $project->dInitialDate=request('inputInitialDate');
         $project->sGitHub=request('inputGitHub');
         $project->sDescription=request('inputDescription');
-
-        $project->save();
 
         $request->validate([
             'imageFile' => 'required',
@@ -57,6 +67,9 @@ class ProjetoController extends Controller
           ]);
 
         if($request->hasfile('imageFile')) {
+
+            $project->save(); // It only saves the project if images exist
+
             foreach($request->file('imageFile') as $file)
             {
                 $name = $file->getClientOriginalName();
@@ -66,11 +79,11 @@ class ProjetoController extends Controller
 
             $fileModal = new Foto();
             $fileModal->sDesignation = json_encode($imgData);
-            $fileModal->iIdProject = $project->id;
+            $fileModal->projeto_id = $project->id;
 
             $fileModal->save();
         }
-        return redirect('/projetos');
+        return redirect('/projetos')->with('message', 'Projeto inserido com sucesso.');
     }
 
     /**

@@ -16,14 +16,14 @@ class CreateProjetosTable extends Migration
         Schema::create('projetos', function (Blueprint $table) {
             $table->id();
             $table->string('sDesignation');
-            $table->unsignedBigInteger('iIdCategory');
+            $table->unsignedBigInteger('categoria_id');
             $table->string('sResponsible');
             $table->date('dInitialDate');
             $table->string('sGitHub');
             $table->text('sDescription');
             $table->timestamps();
 
-            $table->foreign('iIdCategory')
+            $table->foreign('categoria_id')
                 ->references('id')
                 ->on('categorias')
                 ->onDelete('cascade');
