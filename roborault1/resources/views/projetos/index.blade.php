@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/home">Home</a></li>
-                    <li class="breadcrumb-item active">Novo Projeto</li>
+                    <li class="breadcrumb-item active">Listagem de Projetos</li>
                 </ol>
             </div>
         </div>
@@ -51,17 +51,19 @@
                               <th>Autor(es)</th>
                               <th>Data de Início</th>
                               <th>Github</th>
+                              <th>Eliminar</th>
                             </tr>
                             </thead>
                             <tbody>
 
                             @foreach ($projetos as $projeto)
                                 <tr>
-                                    <td>{{ $projeto->sDesignation }}</td>
+                                    <td><a href="/projetos/{{ $projeto->id }}/edit">{{ $projeto->sDesignation }}</a></td>
                                     <td>{{ $projeto->Categoria->sDesignation }}</td>
                                     <td>{{ $projeto->sResponsible }}</td>
                                     <td>{{ $projeto->dInitialDate }}</td>
                                     <td><a href="{{ $projeto->sGitHub }}">{{ $projeto->sGitHub }}</a></td>
+                                    <td class="text-center"><i class="fas fa-trash text-danger"></i></td>
                                 </tr>
                             @endforeach
 

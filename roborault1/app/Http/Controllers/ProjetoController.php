@@ -61,6 +61,8 @@ class ProjetoController extends Controller
         $project->sGitHub=request('inputGitHub');
         $project->sDescription=request('inputDescription');
 
+        $project->save();
+
         $request->validate([
             'imageFile' => 'required',
             'imageFile.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:2048'
@@ -68,13 +70,18 @@ class ProjetoController extends Controller
 
         if($request->hasfile('imageFile')) {
 
-            $project->save(); // It only saves the project if images exist
+            $i = 1;
 
             foreach($request->file('imageFile') as $file)
             {
                 $name = $file->getClientOriginalName();
-                $file->move(public_path().'/uploads/', $name);
+                $extension = pathinfo($name, PATHINFO_EXTENSION); // Image extension
+                $sDesignation = preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"),$project->sDesignation);
+                $sDesignation = str_replace(' ', '',$sDesignation);
+                $name = $sDesignation . $i . ".". $extension;
+                $file->storeAs('public/uploads/', $name);
                 $imgData[] = $name;
+                $i++;
             }
 
             $fileModal = new Foto();
@@ -106,6 +113,8 @@ class ProjetoController extends Controller
     public function edit(Projeto $projeto)
     {
         //
+        $categorias = Categoria::all(); // = SELECT * FROM categorias;
+        return view('projetos.edit', compact('categorias', 'projeto'));
     }
 
     /**
@@ -117,7 +126,28 @@ class ProjetoController extends Controller
      */
     public function update(Request $request, Projeto $projeto)
     {
-        //
+        // Project Form validation
+        request()->validate([
+            'inputDesignation' => 'required',
+            'selectCategory' => 'required',
+            'inputResponsibles' => 'required',
+            'inputInitialDate' => 'required',
+            'inputGitHub' => 'required',
+            'inputDescription' => 'required'
+        ]);
+
+        // Data insertion in Project Form
+        $project = new Projeto();
+        $project->sDesignation = request('inputDesignation');
+        $project->categoria_id=request('selectCategory');
+        $project->sResponsible=request('inputResponsibles');
+        $project->dInitialDate=request('inputInitialDate');
+        $project->sGitHub=request('inputGitHub');
+        $project->sDescription=request('inputDescription');
+
+        $project->save();
+
+        return redirect('/projetos')->with('message', 'Projeto alterado com sucesso.');
     }
 
     /**
