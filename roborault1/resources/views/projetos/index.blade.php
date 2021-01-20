@@ -63,7 +63,16 @@
                                     <td>{{ $projeto->sResponsible }}</td>
                                     <td>{{ $projeto->dInitialDate }}</td>
                                     <td><a href="{{ $projeto->sGitHub }}">{{ $projeto->sGitHub }}</a></td>
-                                    <td class="text-center"><i class="fas fa-trash text-danger"></i></td>
+                                    <td class="text-center">
+                                        <form role="form" action="/projetos/{{ $projeto->id }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit" class="link" style="background-color: trasparent; border:none;">
+                                                <i class="fas fa-trash text-danger" data-toogle="tooltip" title="Eliminar"></i></td>
+                                            </button>
+
+                                        </form>
                                 </tr>
                             @endforeach
 

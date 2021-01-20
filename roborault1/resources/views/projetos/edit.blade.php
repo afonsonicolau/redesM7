@@ -102,7 +102,18 @@
                             <div class="form-group">
                                 <label for="inputImages">Fotos/Imagens</label>
                                 <div class="user-image mb-3 text-center">
-                                    <div class="imgPreview"> </div>
+                                    <div class="imgPreview">
+                                        @foreach ($jDesignations as $jDesignation)
+                                            @if (Storage::exists('public/uploads/' . $jDesignation))
+                                                <span class="pic" id="{{ $loop->index }}">
+                                                    <a href="javascript::void(0)" onclick="deletefoto('{{ $foto->id }}', '{{ $jDesignation }}', '{{ $loop->index }}')">
+                                                        <i class="fas fa-minus-circle close text-danger"></i>
+                                                    </a>
+                                                    <img class="img-thumbnail" width="200" src="{{ asset('storage/uploads')."/".$jDesignation }}" alt="">
+                                                </span>
+                                            @endif
+                                        @endforeach
+                                    </div>
                                 </div>
                                 <div class="input-group">
                                     <div class="custom-file">

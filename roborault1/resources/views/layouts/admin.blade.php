@@ -36,6 +36,22 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+    <style>
+        .pic{
+            display: inline-block;
+            margin: 10px 10px 0 0;
+            position: relative;
+        }
+
+        .close{
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 9999;
+        }
+
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -186,7 +202,12 @@
                         <img src="/dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                        <a href="#" class="d-block">
+                            
+                        @auth
+                            {{ Auth::user()->name }}
+                        @endauth
+                        </a>
                     </div>
                     <div class="ml-auto">
                         <a class="btn btn-secondary" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -430,7 +451,7 @@
         "language": {
             "url": "plugins/datatables/Portuguese.json"},
             "order": [[ 3, "desc" ]]
-    
+
       });
     });
 
@@ -461,7 +482,8 @@
                     var reader = new FileReader();
 
                     reader.onload = function(event) {
-                        $($.parseHTML('<img width="200" class="img-thumbnail">')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
+                        var img = $.parseHTML('<span class="pic new"><img width="200" class="img-thumbnail" src="' + event.target.result) + '"</span>');
+                        $(img)appendTo(imgPreviewPlaceholder);
                     }
 
                     reader.readAsDataURL(input.files[i]);
@@ -471,9 +493,23 @@
         };
 
             $('#images').on('change', function() {
+                $('.new').remove();
                 multiImgPreview(this, 'div.imgPreview');
             });
         });
+
+        function deletefoto(foto, jDesignation, id){
+            $('#' + id).remove(); // Remove a imagem da página
+            $.ajax({
+                type: "delete",
+                url: "/fotos/" +  foto + "/"
+                data: {_token: '{{ csrf_token() }}'},
+                dataType: "json",
+                success: function (response) {
+                    console.log("Ok")
+                }
+            });
+        }
     </script>
 </body>
 

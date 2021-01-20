@@ -6,6 +6,7 @@ use App\Models\Projeto;
 use App\Models\Categoria;
 use App\Models\Foto;
 use Illuminate\Http\Request;
+use PhpParser\JsonDecoder;
 
 class ProjetoController extends Controller
 {
@@ -65,7 +66,7 @@ class ProjetoController extends Controller
 
         $request->validate([
             'imageFile' => 'required',
-            'imageFile.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:2048'
+            'imageFile.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:4096'
           ]);
 
         if($request->hasfile('imageFile')) {
@@ -101,7 +102,12 @@ class ProjetoController extends Controller
      */
     public function show(Projeto $projeto)
     {
-        //
+        // Detalhes de um projeto
+
+        $foto = Foto::where('projeto_id', $projeto->id) -> first();
+        $fotos = json_decode($foto->sDesignation);
+
+        return view('projetos.show', compact('projeto', 'fotos'));
     }
 
     /**
@@ -114,7 +120,17 @@ class ProjetoController extends Controller
     {
         //
         $categorias = Categoria::all(); // = SELECT * FROM categorias;
-        return view('projetos.edit', compact('categorias', 'projeto'));
+        $foto = Foto::where('projeto_id', $projeto->id) -> first(); // SELECT * FROM foto WHERE fotos.projeto_id = projetos.projeto_id
+        if($foto) {
+            // If images associated to the project exist
+            $jDesignations = json_decode($foto->sDesignation);
+        }
+        else
+        {
+            $jDesignations = [];
+        }
+
+        return view('projetos.edit', compact('categorias', 'projeto', 'foto', 'jDesignations'));
     }
 
     /**
@@ -147,6 +163,35 @@ class ProjetoController extends Controller
 
         $project->save();
 
+        $request->validate([
+            'imageFile.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:4096'
+          ]);
+
+        if($request->hasfile('imageFile')) {
+            $fileModal = Foto::where('projeto_id', $projeto->id)->first();
+
+            $fotos = ($fileModal) ? json_decode($fileModal->sDesignation) : [];
+
+            $i = count($fotos) + 1;
+
+            foreach($request->file('imageFile') as $file)
+            {
+                $name = $file->getClientOriginalName();
+                $extension = pathinfo($name, PATHINFO_EXTENSION); // Image extension
+                $sDesignation = preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"),$project->sDesignation);
+                $sDesignation = str_replace(' ', '',$sDesignation);
+                $name = $sDesignation . $i . ".". $extension;
+                $file->storeAs('public/uploads/', $name);
+                $imgData[] = $name;
+                $i++;
+            }
+
+            $imgData = array_merge($fotos, $imgData);
+            $fileModal->sDesignation = json_encode($imgData);
+
+            $fileModal->save();
+        }
+
         return redirect('/projetos')->with('message', 'Projeto alterado com sucesso.');
     }
 
@@ -158,6 +203,10 @@ class ProjetoController extends Controller
      */
     public function destroy(Projeto $projeto)
     {
-        //
+        // Eliminar um projeto
+
+        $projeto->delete();
+
+        return redirect('/projetos')->with('message', 'Projeto eliminado com sucesso.');
     }
 }

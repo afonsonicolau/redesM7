@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,19 +15,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $projetos = DB::table('projetos')
+        ->leftJoin('fotos', 'projetos.id', '=', 'projeto_id')
+        ->select('projetos.*', 'fotos.sDesignation as fotodes')
+        ->get();
 
-Route::get('/project', function () {
-    return view('project');
-})->name('project');
+    return view('welcome', compact('projetos'));
+});
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/projetos', [App\Http\Controllers\ProjetoController::class, 'index'])->name('projetos');
+Route::get('/projetos', [App\Http\Controllers\ProjetoController::class, 'index'])->middleware('auth')->name('projetos');
 Route::post('/projetos', [App\Http\Controllers\ProjetoController::class, 'store']);
-Route::get('/projetos/create', [App\Http\Controllers\ProjetoController::class, 'create'])->name('projetos.create');
-Route::get('/projetos/{projeto}/edit', [App\Http\Controllers\ProjetoController::class, 'edit']);
-Route::get('/projetos/{projeto}', [App\Http\Controllers\ProjetoController::class, 'update']);
+Route::get('/projetos/create', [App\Http\Controllers\ProjetoController::class, 'create'])->middleware('auth')->name('projetos.create');
+Route::get('/projetos/{projeto}', [App\Http\Controllers\ProjetoController::class, 'show']);
+Route::get('/projetos/{projeto}/edit', [App\Http\Controllers\ProjetoController::class, 'edit'])->middleware('auth');
+Route::put('/projetos/{projeto}', [App\Http\Controllers\ProjetoController::class, 'update']);
+Route::delete('/projetos/{projeto}', [App\Http\Controllers\ProjetoController::class, 'destroy']);
+Route::delete('/fotos/{foto}/{sDescription}', [App\Http\Controllers\FotoController::class, 'destroy']);
 
