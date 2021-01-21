@@ -203,7 +203,7 @@
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">
-                            
+
                         @auth
                             {{ Auth::user()->name }}
                         @endauth
@@ -465,9 +465,9 @@
 
     $('#btnReset').click(function () {
         $('.select2').val('default').trigger('change');
-        $('div.imgPreview').empty();
+        $('.new').remove();
         $('p.text-danger').remove();
-        $('input, textarea').val('');
+        $('input[typr=text], input[type=date], textarea').val('');
 
     });
 

@@ -444,30 +444,33 @@
             <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="400">
 
                 @foreach ($projetos as $projeto)
-                @switch($projeto->categoria_id)
-                    @case(1)
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-veic">
-                        @break
-                    @case(2)
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-obj">
-                        @break
-                    @default
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-outros">
-                @endswitch
+                    {{-- Se um projeto não tive fotos, não aprece na página inicial --}}
+                    @if (json_decode($projeto->fotodes)!=[])
+                        @switch($projeto->categoria_id)
+                            @case(1)
+                                <div class="col-lg-4 col-md-6 portfolio-item filter-veic">
+                                @break
+                            @case(2)
+                                <div class="col-lg-4 col-md-6 portfolio-item filter-obj">
+                                @break
+                            @default
+                                <div class="col-lg-4 col-md-6 portfolio-item filter-outros">
+                        @endswitch
 
                         <div class="portfolio-wrap">
                             <img src="{{ asset('storage/uploads')."/".json_decode($projeto->fotodes)[0] }}" class="img-fluid" alt="">
                             <div class="portfolio-info">
                                 <h4>{{ $projeto->sDesignation }}</h4>
                                 <p>{{ $projeto->sResponsible }}</p>
-                                <div class="portfolio-links">
-                                    <a href="{{ asset('storage/uploads')."/".json_decode($projeto->fotodes)[0] }}" data-gall="portfolioGallery"
-                                        class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
-                                    <a href="/projetos/{{ $projeto->id }}" title="Detalhes"><i class="bx bx-link"></i></a>
+                                    <div class="portfolio-links">
+                                        <a href="{{ asset('storage/uploads')."/".json_decode($projeto->fotodes)[0] }}" data-gall="portfolioGallery"
+                                            class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                                        <a href="/projetos/{{ $projeto->id }}" title="Detalhes"><i class="bx bx-link"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 @endforeach
 
 

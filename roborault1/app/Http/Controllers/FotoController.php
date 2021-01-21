@@ -82,17 +82,27 @@ class FotoController extends Controller
      */
     public function destroy(Foto $foto, $jDesignation)
     {
+        $existe = false;
+
         Storage::delete('public/uploads/' . $jDesignation);
         $fotos = json_decode($foto->jDesignation);
-        if(($key = array_search($jDesignation, $fotos)) != false )
-        {
-            unset($fotos[$key]);
-            $foto->$jDesignation = $fotos;
-        }else
-        {
-            $foto->$jDesignation = [];
-        }
 
+        foreach ($fotos as $key => $value) {
+            if (strcmp($value, $jDesignation) == 0) {
+                array_splice($fotos, $key, 1);
+
+                $foto->$jDesignation = json_encode($fotos);
+
+                $existe = true;
+
+                break;
+            }
+        }
+        if(!$existe)
+        {
+            $fotos = [];
+            $foto->sDesignation = json_encode($fotos);
+        }
         $foto->save();
     }
 }

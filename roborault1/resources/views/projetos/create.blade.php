@@ -37,7 +37,8 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="inputDesignation">Designação</label>
-                                <input type="text" class="form-control" name="inputDesignation" id="inputDesignation"
+                                {{-- A designação apensa permite letras e espaços --}}
+                                <input type="text" class="form-control" onkeypress="return /[A-Za-z\s]/i.test(event.key)" name="inputDesignation" id="inputDesignation"
                                     placeholder="Insira a desginação do projeto" required value="{{ old('inputDesignation') }}">
                                 @error('inputDesignation')
                                     <p class="text-danger">{{ $errors->first('inputDesignation') }}</p>
